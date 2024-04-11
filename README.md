@@ -1,0 +1,1 @@
+To make the python file work create a venv, activate it, pip install mysql-connector-python, then run the file from the terminal with the venv activated. Change the password and username of db connection to yours.
