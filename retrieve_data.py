@@ -100,4 +100,35 @@ with open(csv_file_path, mode='w', newline='', encoding="utf-8") as file:
     for row in results:
         writer.writerow(row)
 
+#TrendingDate
+mycursor.execute("SELECT TrendingDate, PeakRank, AppearancesOnChart,ConsecutiveAppearancesOnChart FROM TrendingDates")
+
+# Fetch all the results
+results = mycursor.fetchall()
+
+csv_file_path = 'trending_dates.csv'
+
+# Write the results to a CSV file
+with open(csv_file_path, mode='w', newline='', encoding="utf-8") as file:
+    writer = csv.writer(file)
+    writer.writerow(["TrendingID","TrendingDate","PeakRank","AppearancesOnChart","ConsecutiveAppearancesOnChart"])
+    for i, row in enumerate(results, start=1):
+        writer.writerow([i] + list(row))
+
+
+#TrackTrendingDate
+mycursor.execute("SELECT TrackID FROM TrendingDates")
+
+# Fetch all the results
+results = mycursor.fetchall()
+
+csv_file_path = 'track_trending_dates.csv'
+
+# Write the results to a CSV file
+with open(csv_file_path, mode='w', newline='', encoding="utf-8") as file:
+    writer = csv.writer(file)
+    writer.writerow(["TrackID","TrendingID"])
+    for i, row in enumerate(results, start=1):
+        writer.writerow(list(row)+[i])
+
 mydb.close()
