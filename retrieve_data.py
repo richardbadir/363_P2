@@ -4,11 +4,11 @@ import csv
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="PASSWORD", #replace with your actual password
+  password="richardbad11", #replace with your actual password
   database="music"
 )
 mycursor = mydb.cursor()
-# Check if the connection was successful
+#Tracks
 mycursor.execute("SELECT * FROM Tracks")
 
 # Fetch all the results
@@ -19,7 +19,23 @@ csv_file_path = 'tracks.csv'
 # Write the results to a CSV file
 with open(csv_file_path, mode='w', newline='', encoding="utf-8") as file:
     writer = csv.writer(file)
-    writer.writerow("TrackName,TrackUri,Labels,ReleaseDate,Duration,PlayCount")
+    writer.writerow(["TrackID","TrackName","TrackUri","Labels","ReleaseDate","Duration","PlayCount"])
+    for row in results:
+        writer.writerow(row)
+
+
+#creditors
+mycursor.execute("SELECT * FROM Creditors")
+
+# Fetch all the results
+results = mycursor.fetchall()
+
+csv_file_path = 'creditors.csv'
+
+# Write the results to a CSV file
+with open(csv_file_path, mode='w', newline='', encoding="utf-8") as file:
+    writer = csv.writer(file)
+    writer.writerow(["CreditorID","Name","Role"])
     for row in results:
         writer.writerow(row)
 
