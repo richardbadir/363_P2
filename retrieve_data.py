@@ -4,7 +4,7 @@ import csv
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="richardbad11",
+  password="PASSWORD", #replace with your actual password
   database="music"
 )
 mycursor = mydb.cursor()
