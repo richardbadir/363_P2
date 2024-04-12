@@ -96,7 +96,7 @@ csv_file_path = 'track_insertion_log.csv'
 # Write the results to a CSV file
 with open(csv_file_path, mode='w', newline='', encoding="utf-8") as file:
     writer = csv.writer(file)
-    writer.writerow(["LogID","TrackID","TrackName","InsertionTimestam"])
+    writer.writerow(["LogID","TrackID","TrackName","InsertionTimestamp"])
     for row in results:
         writer.writerow(row)
 
