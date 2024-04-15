@@ -55,12 +55,45 @@ CREATE INDEX FOR (t:track) ON (t.Labels);
 CALL db.clearQueryCaches()
 
 
-//6 Demonstrate a full text search. Show the performance improvement by using indexes.
-// We use PROFILE to see the performance
-CREATE FULLTEXT INDEX tracksFullText FOR (n:track) ON EACH [n.TrackName, n.Labels]
 
-PROFILE CALL db.index.fulltext.queryNodes("tracksFullText", "Love") YIELD node
-RETURN node.TrackName, node.Labels
-// Results : Started streaming 189 records after 85 ms and completed after 145 ms.
+
+
+
+
+//6 Demonstrate a full text search. Show the performance improvement by using indexes.
+
+//Step 1: Create a Full-Text Index
+CREATE TEXT INDEX trackNameSearch FOR (t:track) ON (t.TrackName);
+//Added 1 index, completed after 11 ms.
+
+
+//Step 2: Perform a Full-Text Search
+MATCH (t:track)
+WHERE t.TrackName CONTAINS 'love'
+RETURN t.TrackName AS TrackName
+ORDER BY t.TrackName
+LIMIT 5;
+//Started streaming 5 records after 9 ms and completed after 58 ms.
+
+
+//DEMONSTRATING PERFORMANCE IMPROVEMENT 
+
+//Before creating indexes:
+PROFILE
+MATCH (t:track)
+WHERE t.TrackName CONTAINS 'love'
+RETURN t.TrackName AS TrackName
+LIMIT 5;
+
+//After Creating Indexes:
+PROFILE
+MATCH (t:track)
+WHERE t.TrackName CONTAINS 'love'
+RETURN t.TrackName AS TrackName
+ORDER BY t.TrackName
+LIMIT 5;
+
+//**Ensure fair comparison by clearing the query cache between tests:
+CALL db.clearQueryCaches();
 
 
