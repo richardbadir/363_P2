@@ -13,7 +13,7 @@ RETURN t;
 // For counting the number of tracks that have a PlayCount greater than 1000:
 
 MATCH (t:track)
-WHERE t.PlayCount > 1000
+WHERE t.PlayCount > 10000000
 RETURN count(t) AS NumberOfTracks;
 //First try: took 16 ms.
 //With indexes: took 10 ms.
