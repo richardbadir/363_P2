@@ -70,7 +70,7 @@ CREATE TEXT INDEX trackNameSearch FOR (t:track) ON (t.TrackName);
 //Step 2: Perform a Full-Text Search
 MATCH (t:track)
 WHERE t.TrackName CONTAINS 'love'
-RETURN t.TrackName AS TrackName
+RETURN t.TrackName AS TrackName, t.TrackUri
 ORDER BY t.TrackName
 LIMIT 5;
 //Started streaming 5 records after 9 ms and completed after 58 ms.
